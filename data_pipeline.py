@@ -39,7 +39,9 @@ def make_batch():
         rows = [encode(text) for text in sentences]
         return pad_sequence(rows, batch_first=True, padding_value=PAD)
 
-    return Batch(stack(src), stack(tgt), pad=PAD), len(vocab) + 3
+        batch = Batch(stack(src), stack(tgt), pad=PAD)
+    batch.vocab = vocab
+    return batch, len(vocab) + 3
 
 if __name__ == "__main__":
     batch, size = make_batch()
