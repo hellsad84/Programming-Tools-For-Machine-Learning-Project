@@ -1,0 +1,40 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Week 1 practice check
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  practice:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Download repository files
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+
+      - name: Install PyTorch
+        run: |
+          python -m pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+
+      - name: Check data preparation
+        run: python data_pipeline.py
+
+      - name: Check both model configurations
+        run: python model.py
+
+      - name: Train one-head model for one update
+        run: python train.py 1 11
+
+      - name: Train eight-head model for one update
+        run: python train.py 8 11
