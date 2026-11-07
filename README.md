@@ -30,9 +30,9 @@ This table lists the files added or adapted for the current practice.
 
 | File | Week 1 purpose or change | Responsibility |
 | --- | --- | --- |
-| `data_pipeline.py` | Added the 22 pairs, vocabulary, padded batches and data checks | Teammate 1 |
-| `model.py` | Added a small model wrapper and checks for one/eight heads | Teammate 2 |
-| `train.py` | Added a one-update training check and loss output | Teammate 3 |
+| `data_pipeline.py` | Added the 22 pairs, vocabulary, padded batches and data checks | 黄天恩 |
+| `model.py` | Added a small model wrapper and checks for one/eight heads | 田锐 |
+| `train.py` | Added a one-update training check and loss output | 赵晟凯 |
 | `translation_demo.py` | Added repeated training and readable German predictions | Shared integration |
 | `starter_core.py` | Extracted selected Transformer and batch definitions from the credited upstream code | Shared dependency |
 | `.github/workflows/week1-check.yml` | Adapted a workflow template to install dependencies and run our scripts | Shared workflow |
