@@ -39,3 +39,9 @@ jobs:
 
       - name: Train eight-head model for one update
         run: python train.py 8 11
+        
+      - name: Show German predictions with one attention head
+        run: python translation_demo.py 1
+
+      - name: Show German predictions with eight attention heads
+        run: python translation_demo.py 8
