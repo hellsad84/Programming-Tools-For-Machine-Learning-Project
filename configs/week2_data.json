@@ -1,0 +1,10 @@
+{
+  "raw_dir": "data/raw/multi30k",
+  "output_dir": "data/week2",
+  "revision": "2cc0f2d7c615b60e07e2d51bb5edc004444d7e0e",
+  "source_url_template": "https://raw.githubusercontent.com/multi30k/dataset/{revision}/data/task1/raw/{stem}.{lang}.gz",
+  "subset_size": 5000,
+  "subset_seed": 11,
+  "vocab_size": 4000,
+  "max_train_tokens": 100
+}
