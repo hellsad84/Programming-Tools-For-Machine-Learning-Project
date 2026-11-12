@@ -1,0 +1,74 @@
+{
+  "config": {
+    "raw_dir": "data/raw/multi30k",
+    "output_dir": "data/week2",
+    "revision": "2cc0f2d7c615b60e07e2d51bb5edc004444d7e0e",
+    "source_url_template": "https://raw.githubusercontent.com/multi30k/dataset/{revision}/data/task1/raw/{stem}.{lang}.gz",
+    "subset_size": 5000,
+    "subset_seed": 11,
+    "vocab_size": 4000,
+    "max_train_tokens": 100
+  },
+  "source_files": {
+    "revision": "2cc0f2d7c615b60e07e2d51bb5edc004444d7e0e",
+    "source_url_template": "https://raw.githubusercontent.com/multi30k/dataset/{revision}/data/task1/raw/{stem}.{lang}.gz",
+    "files": {
+      "train.en.gz": {
+        "url": "https://raw.githubusercontent.com/multi30k/dataset/2cc0f2d7c615b60e07e2d51bb5edc004444d7e0e/data/task1/raw/train.en.gz",
+        "sha256": "d79cfa999dd4c51d2cb42499b6796d5a882c3a8a961923c25a898c90f8bbd56f",
+        "bytes": 568929,
+        "lines": 29000
+      },
+      "train.de.gz": {
+        "url": "https://raw.githubusercontent.com/multi30k/dataset/2cc0f2d7c615b60e07e2d51bb5edc004444d7e0e/data/task1/raw/train.de.gz",
+        "sha256": "726e39b2fa9eb9ffb6dc763fb35a179f80fae06ffc5d28b6ace5faa883de28a6",
+        "bytes": 637044,
+        "lines": 29000
+      },
+      "val.en.gz": {
+        "url": "https://raw.githubusercontent.com/multi30k/dataset/2cc0f2d7c615b60e07e2d51bb5edc004444d7e0e/data/task1/raw/val.en.gz",
+        "sha256": "14f7d25ddd868909a9213e361768460edcacdd6ab9d1e77b92560dc10c10dc28",
+        "bytes": 21650,
+        "lines": 1014
+      },
+      "val.de.gz": {
+        "url": "https://raw.githubusercontent.com/multi30k/dataset/2cc0f2d7c615b60e07e2d51bb5edc004444d7e0e/data/task1/raw/val.de.gz",
+        "sha256": "f0cba2f995189cf5770f29a8a9a537a3ad3f51657ad873405082ff6863a5e75a",
+        "bytes": 24681,
+        "lines": 1014
+      },
+      "test_2016_flickr.en.gz": {
+        "url": "https://raw.githubusercontent.com/multi30k/dataset/2cc0f2d7c615b60e07e2d51bb5edc004444d7e0e/data/task1/raw/test_2016_flickr.en.gz",
+        "sha256": "611d361c6334bc7246101d48097c13cf5c4413c5befc793cc629934359d532d9",
+        "bytes": 21077,
+        "lines": 1000
+      },
+      "test_2016_flickr.de.gz": {
+        "url": "https://raw.githubusercontent.com/multi30k/dataset/2cc0f2d7c615b60e07e2d51bb5edc004444d7e0e/data/task1/raw/test_2016_flickr.de.gz",
+        "sha256": "9204244e408ccb38d2a55cfcd344df15005fc42a07a6e55ca6c52b6ababb8cc8",
+        "bytes": 22890,
+        "lines": 1000
+      }
+    }
+  },
+  "counts": {
+    "train": 5000,
+    "valid": 1014,
+    "test": 1000
+  },
+  "vocab_size": 4000,
+  "special_ids": {
+    "pad": 0,
+    "bos": 1,
+    "eos": 2,
+    "unk": 3
+  },
+  "files": {
+    "train.jsonl": "fe0bab93ed011fbc0f83e41282d9b210deab7d582b5d3c84871775b84360705f",
+    "valid.jsonl": "7b287e59544a7665fd18bbe22ed850f3420fa21212f34bfd34c0ba1dc89f18de",
+    "test.jsonl": "2b4027b0bff78527362a3d4fbd74a3c366314f9ed4b7adc14eb8be32f670f186",
+    "tokenizer.model": "2afa8fab7d32560607f267792125e0391680b13d0eb4f6440341db57fd08e1ad",
+    "tokenizer.vocab": "3b1f6f1ec65db21fd16367ceec52ca6120f32cc87328e058922ace04bbb62ed6",
+    "audit.json": "820d5b6dabd7ff3bd339558bbfe6f06f363c7ed98490305c603f732bc32f02db"
+  }
+}
