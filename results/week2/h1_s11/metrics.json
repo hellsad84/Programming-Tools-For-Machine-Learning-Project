@@ -1,0 +1,19 @@
+{
+  "bleu": 5.629725181002891,
+  "signature": "nrefs:1|case:mixed|eff:no|tok:13a|smooth:exp|version:2.6.0",
+  "validation_nll": 4.119889612847518,
+  "evaluated_pairs": 1014,
+  "split": "valid",
+  "timing_subset_only": false,
+  "heads": 1,
+  "steps": 500,
+  "seed": 11,
+  "decode_seconds": 3.841986794024706,
+  "train_seconds": 10.698945504023868,
+  "tokens_seen": 138671,
+  "examples_seen": 7992,
+  "batch_order_sha256": "2d22ebd72b842bbf270d6ee7673b61445bc107b0e2ff34c1e956a3b24972b1cc",
+  "manifest_sha256": "b2d8da359415e5c094fb2ea7a96e63ef572d3550fca133bbe601f5908074e270",
+  "parameter_count": 1871776,
+  "max_new_tokens": 128
+}
