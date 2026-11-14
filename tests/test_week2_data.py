@@ -174,8 +174,17 @@ class PackageTests(unittest.TestCase):
             self.assertEqual(first_audit["final_training_ids"],
                              second_audit["final_training_ids"])
             for split in ("train", "valid", "test"):
-                self.assertEqual(sha256(DATA_DIR / f"{split}.jsonl"),
-                                 sha256(second_dir / f"{split}.jsonl"))
+    first_text = (DATA_DIR / f"{split}.jsonl").read_text(
+        encoding="utf-8"
+    )
+    second_text = (second_dir / f"{split}.jsonl").read_text(
+        encoding="utf-8"
+    )
+    self.assertEqual(
+        first_text,
+        second_text,
+        msg=f"{split}: regenerated dataset content differs",
+    )
 
     @needs_package
     def test_tampered_artifact_is_rejected(self):
