@@ -158,8 +158,6 @@ class PackageTests(unittest.TestCase):
 
     @needs_package
     @needs_raw
-        @needs_package
-    @needs_raw
     def test_second_prepare_matches_the_first(self):
         config = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
         first = json.loads(
