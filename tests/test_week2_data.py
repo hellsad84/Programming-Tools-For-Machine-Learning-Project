@@ -158,33 +158,49 @@ class PackageTests(unittest.TestCase):
 
     @needs_package
     @needs_raw
+        @needs_package
+    @needs_raw
     def test_second_prepare_matches_the_first(self):
         config = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
-        first = json.loads((DATA_DIR / "manifest.json").read_text(encoding="utf-8"))
-        first_audit = json.loads((DATA_DIR / "audit.json").read_text(encoding="utf-8"))
+        first = json.loads(
+            (DATA_DIR / "manifest.json").read_text(encoding="utf-8")
+        )
+        first_audit = json.loads(
+            (DATA_DIR / "audit.json").read_text(encoding="utf-8")
+        )
+
         with tempfile.TemporaryDirectory() as temporary:
             second_dir = Path(temporary) / "week2"
             rerun = copy.deepcopy(config)
             rerun["output_dir"] = str(second_dir)
             prepare(rerun)
-            second = json.loads((second_dir / "manifest.json").read_text(encoding="utf-8"))
-            second_audit = json.loads((second_dir / "audit.json").read_text(encoding="utf-8"))
+
+            second = json.loads(
+                (second_dir / "manifest.json").read_text(encoding="utf-8")
+            )
+            second_audit = json.loads(
+                (second_dir / "audit.json").read_text(encoding="utf-8")
+            )
+
             self.assertEqual(first["counts"], second["counts"])
             self.assertEqual(first["vocab_size"], second["vocab_size"])
-            self.assertEqual(first_audit["final_training_ids"],
-                             second_audit["final_training_ids"])
+            self.assertEqual(
+                first_audit["final_training_ids"],
+                second_audit["final_training_ids"],
+            )
+
             for split in ("train", "valid", "test"):
-    first_text = (DATA_DIR / f"{split}.jsonl").read_text(
-        encoding="utf-8"
-    )
-    second_text = (second_dir / f"{split}.jsonl").read_text(
-        encoding="utf-8"
-    )
-    self.assertEqual(
-        first_text,
-        second_text,
-        msg=f"{split}: regenerated dataset content differs",
-    )
+                first_text = (DATA_DIR / f"{split}.jsonl").read_text(
+                    encoding="utf-8"
+                )
+                second_text = (second_dir / f"{split}.jsonl").read_text(
+                    encoding="utf-8"
+                )
+                self.assertEqual(
+                    first_text,
+                    second_text,
+                    msg=f"{split}: regenerated dataset content differs",
+                )
 
     @needs_package
     def test_tampered_artifact_is_rejected(self):
