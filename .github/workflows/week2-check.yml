@@ -1,0 +1,71 @@
+name: Week 2 check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  week2-check:
+    name: Data, model, and training checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: pip
+          cache-dependency-path: requirements-week2.txt
+
+      - name: Install Week 2 dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-week2.txt
+
+      - name: Prepare dataset location
+        shell: bash
+        run: |
+          # An old tracked placeholder is a file, not a directory.
+          # Remove it ONLY in the temporary runner; fix it separately in Git.
+          if [ -f data/week2 ]; then
+            echo '::warning::Removing tracked data/week2 placeholder on CI runner.'
+            rm data/week2
+          fi
+
+      - name: Download pinned Multi30k source files
+        run: python -m week2.prepare_data --config configs/week2_data.json --download-only
+
+      - name: Build Week 2 dataset and shared tokenizer
+        run: python -m week2.prepare_data --config configs/week2_data.json
+
+      - name: Verify delivered files and package versions
+        run: python -m week2.check_setup --full
+
+      - name: Check dataset, batches, and masks
+        run: python -m week2.data_pipeline --check --data-dir data/week2
+
+      - name: Check 1-head and 8-head model shapes
+        run: python -m week2.model --check
+
+      - name: Run all Week 2 unit tests
+        run: python -m unittest discover -s tests -p 'test_week2*.py' -v
+
+      # Short smoke runs only: not the two 500-update measured experiments.
+      - name: Smoke-test 1-head training and evaluation
+        run: |
+          python -m week2.train --heads 1 --steps 20 --out runs/ci/h1
+          python -m week2.evaluate --checkpoint runs/ci/h1/final.pt --limit 50 --out runs/ci/h1/eval
+
+      - name: Smoke-test 8-head training and evaluation
+        run: |
+          python -m week2.train --heads 8 --steps 20 --out runs/ci/h8
+          python -m week2.evaluate --checkpoint runs/ci/h8/final.pt --limit 50 --out runs/ci/h8/eval
