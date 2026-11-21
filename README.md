@@ -1,8 +1,6 @@
-# Attention Is All You Need — Week 1 and Week 2 Progress
+# Attention Is All You Need — Weeks 1–3 Progress
 
-**Status: Week 1 practice and the Week 2 CPU pilot completed. The replication project is still in progress.**
-
-This README records what we completed in Weeks 1 and 2, including setup instructions and measured experiment results. We will continue updating it as the project develops.
+**Status:** We completed the Week 1 practice, the Week 2 CPU pilot and the Week 3 translation review. The three-seed comparison is planned for Week 4.
 
 ## Project purpose
 
@@ -11,6 +9,8 @@ Our project is based on [Attention Is All You Need (Vaswani et al., 2017)](https
 For Week 1, our goal was to set up the repository and get a small practice example working from data preparation to German prediction output.
 
 For Week 2, our goal was to use a real translation dataset, prepare separate training and evaluation data, and run a fair comparison with the same data and training budget.
+
+For Week 3, our goal was to review ten saved validation translations and check whether the one-head and eight-head models each preserved one selected detail from the English source in their German translations.
 
 ## What we completed in Week 1
 
@@ -238,7 +238,11 @@ data/week2/
 
 Keep every file listed in the manifest. Both head counts must use the same dataset and tokenizer.
 
-The source code on GitHub alone is not the prepared dataset. If the delivered files are directly under `data/`, place the complete package inside the `data/week2/` subfolder.
+In the current repository, the frozen package is directly under `data/`. On a fresh checkout, run the following once from the repository root to copy the prepared files into the path used by the training scripts. If you already have a populated `data/week2/`, go straight to the checks below.
+
+```bash
+mkdir data/week2 && cp data/manifest.json data/audit.json data/train.jsonl data/valid.jsonl data/test.jsonl data/tokenizer.model data/tokenizer.vocab data/tokenizer_input.txt data/week2/
+```
 
 ### 3. Run the checks
 
@@ -359,12 +363,20 @@ We use selected code from [Harvard NLP's Annotated Transformer](https://github.c
 
 The reused Transformer implementation is credited to its original authors. Our practice scripts and file changes are listed above.
 
-## Next steps
+## Week 3 progress
 
-- Keep the Week 2 results as the measured baseline.
-- Back up the complete experiment artifacts to team storage and record their shared location.
-- In later weeks, repeat the comparison with multiple seeds and a larger matched training budget.
-- Examine translation errors and carry out the planned peer review.
-- Keep the test split reserved during development.
-- Continue adding measured results and updated instructions as the work progresses.
+We reviewed the first ten saved validation examples and checked one specified detail in each translation. The one-head model preserved 0 of 10 details. The eight-head model preserved 1 of 10, the bicycle in `valid-00009`. Both models retained a running dog in `valid-00006`, but both omitted the second dog it was chasing. These counts describe the ten selected details. [Week 3 report and both teammates’ annotations](week3/week3_progress.md)
 
+## Week 4 goals (planned)
+
+Does the eight-head model’s 0.77-point validation BLEU advantage at seed 11 also appear at two more training seeds? We will reuse the measured seed-11 pair and add matched one-head and eight-head runs for seeds **22 and 33**. Each run will use 500 updates and all 1,014 validation sentences. The frozen dataset, tokenizer, training configuration and greedy decoding settings carry over from Week 2. Only the training seed varies across pairs. The data-subset seed stays at 11.
+
+| Owner | Week 4 task | Evidence to deliver |
+| --- | --- | --- |
+| Teammate 1 · data | Follow the README setup from a fresh checkout. Verify the frozen manifest and tokenizer hashes against the Week 2 report, and confirm 5,000 training and 1,014 validation pairs. | A short data-check note with the command, observed counts and hashes. |
+| Teammate 2 · model and decoding | Compare the one-head and eight-head configurations and greedy decoding settings within each new seed. Check that each pair uses the same training batch order and evaluates the same validation IDs in the same order. | A check table for seeds 22 and 33 with evidence from the resolved configurations, metrics and saved IDs. |
+| Teammate 3 · training and reporting | Run the four new experiments in fresh directories, evaluate full validation, and combine them with seed 11. | A six-row table of BLEU and validation NLL, linked metrics for each row, and a three-seed summary in `results/week4/summary.md`. |
+
+For the summary, calculate the BLEU difference (8 heads minus 1 head) for each seed. Report the mean and sample standard deviation across the three seeds for BLEU and validation NLL for each model. State how many seeds favored eight heads. Use the full-precision saved metrics for calculations and round only the displayed values.
+
+Week 4 is complete when a teammate can trace all six rows to saved metrics, verify both new pairs, and open the results from this README. Keep the test split reserved. A longer training budget, another random sample of translations and formal code review remain possible later milestones. The shared backup location still needs verification.
